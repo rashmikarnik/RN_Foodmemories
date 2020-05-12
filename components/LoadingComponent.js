@@ -25,7 +25,7 @@ class Loading extends Component {
 
                     leftDistance={-150}
                     rightDistance={-300}
-                    speed={2000}
+                    speed={1000}
                 />
                 <Text style={styles.loadingText}>Loading....</Text>
             </View>

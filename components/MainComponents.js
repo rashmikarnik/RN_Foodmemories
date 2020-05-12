@@ -3,8 +3,17 @@ import Home from './HomeComponent';
 import Recipes from './RecipesComponent';
 import Loading from './LoadingComponent';
 import { Icon } from 'react-native-elements';
-import { View, Text, ScrollView, StyleSheet, SafeAreaView, Image } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
+import SafeAreaView from 'react-native-safe-area-view';
+import { connect } from 'react-redux';
+import { fetchRecipes } from '../redux/ActionCreators';
+
+// mapDispatchToProps helps to get updated contents
+
+const mapDispatchToProps = {
+    fetchRecipes
+}
 
 // Create StackNavigators for each component
 
@@ -15,14 +24,19 @@ const HomeNavigator = createStackNavigator(
     {
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#2A5666'
             },
             headerTintcolor: '#fff',
             headerTitleStyle: {
+                fontSize: 24,
                 color: '#fff',
+                width: '70%',
+            textAlign: 'center'
+               
             },
+          
             headerLeft: <Icon
-                name='home'
+                name='bars'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
@@ -162,6 +176,12 @@ const MainNavigator = createDrawerNavigator(
 
 class Main extends Component {
 
+    //componentDidMount produce the thing when page is loaded
+
+    componentDidMount() {
+        this.props.fetchRecipes();
+    }
+
     render() {
         return (
             <View style={{
@@ -182,7 +202,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop:0
     },
 
     stackIcon: {
@@ -192,4 +213,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Main;
+export default connect(null,mapDispatchToProps)(Main);
