@@ -1,0 +1,3 @@
+export const RECIPES_LOADING = 'RECIPES_LOADING';
+export const ADD_RECIPES = 'ADD_RECIPES';
+export const RECIPES_FAILED = 'RECIPES_FAILED';
