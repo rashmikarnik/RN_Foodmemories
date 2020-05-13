@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, ScrollView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, Animated, FlatList } from 'react-native';
 import Recipecard from './CssStyles/AppStyles';
 import { baseUrl } from '../shared/baseUrl';
 import { connect } from 'react-redux';
 import Loading from './LoadingComponent';
 import { Image } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 
 //Define the state
 
@@ -31,9 +32,9 @@ class Home extends Component {
 
         // Help to render the Recipes in Conatainer that are available in db.json
         const renderRecipes = ({ item }) => {
-           ;
+           
             return (
-                <ScrollView>
+                <Animatable.View animation='zoomIn' duration={2000} delay={1000}>
                     <TouchableHighlight
                         underlayColor='rgba(73,182,77,0.9)'
                         onPress={() => this.onPressRecipe({ recipes: item.id })}>
@@ -47,7 +48,7 @@ class Home extends Component {
                         </View>
 
                     </TouchableHighlight>
-                </ScrollView>
+                </Animatable.View>
             );
         };
 

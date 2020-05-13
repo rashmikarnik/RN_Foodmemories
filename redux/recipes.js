@@ -3,7 +3,7 @@ import * as ActionTypes from './ActionTypes';
 export const recipes = (state = {
     isLoading: true,
     errMess: null,
-    campsites: []
+    recipes: []
 }, action) => {
 
     //Adding Actions

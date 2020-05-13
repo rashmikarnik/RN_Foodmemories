@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Recipes from './RecipesComponent';
 import Loading from './LoadingComponent';
+import Category from './CategoryComponent';
 import { Icon } from 'react-native-elements';
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
 import SafeAreaView from 'react-native-safe-area-view';
 import { connect } from 'react-redux';
-import { fetchRecipes } from '../redux/ActionCreators';
+import { fetchRecipes, fetchCategory } from '../redux/ActionCreators';
 
 // mapDispatchToProps helps to get updated contents
 
 const mapDispatchToProps = {
-    fetchRecipes
+    fetchRecipes,
+    fetchCategory
 }
 
 // Create StackNavigators for each component
@@ -45,6 +47,36 @@ const HomeNavigator = createStackNavigator(
     }
 );
 
+const CategoryNavigator = createStackNavigator(
+    {
+        Category: { screen: Category }
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: '#2A5666'
+            },
+            headerTintcolor: '#fff',
+            headerTitleStyle: {
+                fontSize: 24,
+                color: '#fff',
+                width: '70%',
+            textAlign: 'center'
+               
+            },
+          
+            headerLeft: <Icon
+                name='bars'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    }
+);
+
+
+
 const RecipesNavigator = createStackNavigator(
     {
         Recipes: { screen: Recipes }
@@ -52,14 +84,17 @@ const RecipesNavigator = createStackNavigator(
     {
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#2A5666'
             },
             headerTintcolor: '#fff',
             headerTitleStyle: {
-                color: '#fff'
+                fontSize: 24,
+                color: '#fff',
+                width: '70%',
+            textAlign: 'center'
             },
             headerLeft: <Icon
-                name='cutlery'
+                name='bars'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
@@ -76,14 +111,17 @@ const LoadingNavigator = createStackNavigator(
     {
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#2A5666'
             },
             headerTintcolor: '#fff',
             headerTitleStyle: {
+                fontSize: 24,
                 color: '#fff',
+                width: '70%',
+            textAlign: 'center'
             },
             headerLeft: <Icon
-                name='home'
+                name='bars'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
@@ -167,7 +205,23 @@ const MainNavigator = createDrawerNavigator(
             }
         },
 
+        Category: {
+            screen: CategoryNavigator,
+            navigationOptions: {
+                drawerLable: 'Categories',
+                drawerIcon: () => (
+                    <Icon
+                        name='list'
+                        type='font-awesome'
+                        size={24}
+                        iconColor='AD4832'
+                        color='#AD4832'
+                        reverse
+                    />
+                )
+            }
     },
+},    
     {
         drawerBackgroundColor: '#CEC8FF',
         contentComponent: CustomDrawerContentComponent
@@ -180,6 +234,7 @@ class Main extends Component {
 
     componentDidMount() {
         this.props.fetchRecipes();
+        this.props.fetchCategory();
     }
 
     render() {

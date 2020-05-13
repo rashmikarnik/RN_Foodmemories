@@ -34,8 +34,6 @@ class Loading extends Component {
     }
 }
 
-export default Loading;
-
 const styles = StyleSheet.create({
     loadingView: {
         alignItems: 'center',
@@ -48,3 +46,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
+
+export default Loading;
+
