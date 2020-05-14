@@ -3,6 +3,7 @@ import Home from './HomeComponent';
 import Recipes from './RecipesComponent';
 import Loading from './LoadingComponent';
 import Category from './CategoryComponent';
+import RecipeList from './RecipeListComponent';
 import { Icon } from 'react-native-elements';
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
@@ -21,10 +22,33 @@ const mapDispatchToProps = {
 
 const HomeNavigator = createStackNavigator(
     {
-        Home: { screen: Home }
+        Home: {
+            screen: Home,
+            navigationOptions: ({ navigation }) => ({
+                headerStyle: {
+                    backgroundColor: '#2A5666'
+                },
+                headerTintcolor: '#fff',
+                headerTitleStyle: {
+                    fontSize: 24,
+                    color: '#fff',
+                    width: '70%',
+                    textAlign: 'center'
+
+                },
+                headerLeft: <Icon
+                    name='bars'
+                    type='font-awesome'
+                    iconStyle={styles.stackIcon}
+                    onPress={() => navigation.toggleDrawer()}
+                />
+            })
+        },
+        Recipes: { screen: Recipes }
     },
     {
-        navigationOptions: ({ navigation }) => ({
+        initialRouteName: 'Home',
+        navigationOptions: {
             headerStyle: {
                 backgroundColor: '#2A5666'
             },
@@ -33,17 +57,9 @@ const HomeNavigator = createStackNavigator(
                 fontSize: 24,
                 color: '#fff',
                 width: '70%',
-            textAlign: 'center'
-               
+                textAlign: 'center'
             },
-          
-            headerLeft: <Icon
-                name='bars'
-                type='font-awesome'
-                iconStyle={styles.stackIcon}
-                onPress={() => navigation.toggleDrawer()}
-            />
-        })
+        }
     }
 );
 
@@ -61,10 +77,10 @@ const CategoryNavigator = createStackNavigator(
                 fontSize: 24,
                 color: '#fff',
                 width: '70%',
-            textAlign: 'center'
-               
+                textAlign: 'center'
+
             },
-          
+
             headerLeft: <Icon
                 name='bars'
                 type='font-awesome'
@@ -77,9 +93,9 @@ const CategoryNavigator = createStackNavigator(
 
 
 
-const RecipesNavigator = createStackNavigator(
+const RecipeListNavigator = createStackNavigator(
     {
-        Recipes: { screen: Recipes }
+        RecipeList: { screen: RecipeList }
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -102,7 +118,7 @@ const RecipesNavigator = createStackNavigator(
         })
     }
 
-);
+); 
 
 const LoadingNavigator = createStackNavigator(
     {
@@ -118,7 +134,7 @@ const LoadingNavigator = createStackNavigator(
                 fontSize: 24,
                 color: '#fff',
                 width: '70%',
-            textAlign: 'center'
+                textAlign: 'center'
             },
             headerLeft: <Icon
                 name='bars'
@@ -143,7 +159,7 @@ const CustomDrawerContentComponent = props => (
                     <Image source={require('./images/samLogo.png')} />
                 </View>
             </View>
-       <DrawerItems {...props}/>
+            <DrawerItems {...props} />
         </SafeAreaView>
     </ScrollView>
 
@@ -170,23 +186,23 @@ const MainNavigator = createDrawerNavigator(
             }
         },
 
-        Recipes: {
-            screen: RecipesNavigator,
-            navigationOptions: {
-                drawerLable: 'Home',
-                drawerIcon: () => (
-                    <Icon
-                        name='cutlery'
-                        type='font-awesome'
-                        size={24}
-                        iconColor='black'
-                        color='#AD4832'
-                        reverse
-                    />
-                )
-            }
-
-        },
+         RecipeList: {
+              screen: RecipeListNavigator,
+              navigationOptions: {
+                  drawerLable: 'Home',
+                  drawerIcon: () => (
+                      <Icon
+                          name='cutlery'
+                          type='font-awesome'
+                          size={24}
+                          iconColor='black'
+                          color='#AD4832'
+                          reverse
+                      />
+                  )
+              }
+  
+          },
 
         Loading: {
             screen: LoadingNavigator,
@@ -220,8 +236,8 @@ const MainNavigator = createDrawerNavigator(
                     />
                 )
             }
+        },
     },
-},    
     {
         drawerBackgroundColor: '#CEC8FF',
         contentComponent: CustomDrawerContentComponent
@@ -250,15 +266,15 @@ class Main extends Component {
 }
 
 const styles = StyleSheet.create({
-    
+
     drawerHeader: {
-        backgroundColor:'#4C231A',
+        backgroundColor: '#4C231A',
         height: 200,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
         flexDirection: 'row',
-        marginTop:0
+        marginTop: 0
     },
 
     stackIcon: {
@@ -268,4 +284,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(null,mapDispatchToProps)(Main);
+export default connect(null, mapDispatchToProps)(Main);

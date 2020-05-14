@@ -23,13 +23,14 @@ class Home extends Component {
         title: 'Home'
     }
 
-    onPressRecipe = item => {
-        this.props.navigation.navigate('Category', { item });
-    }
+   /* onPressRecipe = item => {
+        this.props.navigation.navigate('Recipes', { item });
+    }*/
 
 
     render() {
 
+        const { navigate } = this.props.navigation;
         // Help to render the Recipes in Conatainer that are available in db.json
         const renderRecipes = ({ item }) => {
            
@@ -37,7 +38,7 @@ class Home extends Component {
                 <Animatable.View animation='zoomIn' duration={2000} delay={1000}>
                     <TouchableHighlight
                         underlayColor='rgba(73,182,77,0.9)'
-                        onPress={() => this.onPressRecipe({ recipes: item.id })}>
+                        onPress={() => navigate('Recipes', { recipeId: item.id })}>
                         <View style={styles.container}>
                             <Image
                                 style={styles.photo}
