@@ -1,56 +1,95 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
-import { Image, Card } from 'react-native-elements';
-import { baseUrl } from '../shared/baseUrl';
+import { View, Text, StyleSheet, ScrollView, Dimensions, FlatList, TouchableHighlight } from 'react-native';
+import { Image } from 'react-native-elements';
+import Recipecard from './CssStyles/AppStyles';
 import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 import * as Animatable from 'react-native-animatable';
 
-import YouTube from 'react-native-youtube';
 
-class RecipeList extends Component{
-    
-    static navigationOptions = {
-        title: 'RecipeList'
-    }
-  /*Youtube*/
-  constructor(props) {
-    super(props);
-    this.state = {
-        isReady: false,
-        status: "",
-        quality: "",
-        error: ""
+
+const { width: viewportWidth } = Dimensions.get('window');
+
+const mapStateToProps = state => {
+    return {
+        recipes: state.recipes,
+        category: state.category
     };
 };
 
-    render() {
-        const apikey = "AIzaSyAPciiZFW3WCTvhow4WCXd-ApTWjnHaTyI";
+
+
+class RecipeList extends Component {
+
+    static navigationOptions = {
+        title: 'RecipeList'
+    }
+
+    getRecipes(categoryId) {
+        console.log("categoryid" + categoryId);
+        const recipesArray = [];
+        this.props.recipes.recipes.map(data => {
+            if (data.catid == categoryId) {
+                recipesArray.push(data);
+                console.log("recipes array with catg" + recipesArray.length);
+            }
+        });
+        return recipesArray;
+    }
+
+       render() {
+
+        const { navigate } = this.props.navigation;
+        const item = this.props.navigation.getParam('catId');
+        // console.log('hurrrray: ' +categoryPassedId);
+        const recipesArray = this.getRecipes(item);
+        // console.log("yahoooo: " +recipesArray);
+
+    const renderRecipesByCategory = ({ item }) => {
+
         return(
-            <View >
-            <YouTube
-             ref={this._youTubeRef}
-            apiKey={apikey}
-            videoId="vHPh6TKxVUY" // The YouTube video ID
-            play // control playback of video with true/false
-            fullscreen={false} // video should play in fullscreen or inline
-            loop={false} // control whether the video should loop when ended
-            onReady={e => this.setState({ isReady: true })}
-            onChangeState={e => this.setState({ status: e.state })}
-            onChangeQuality={e => this.setState({ quality: e.quality })}
-            onError={e => this.setState({ error: e.error })}
-            style={styles.youtube}
-            />
-            <Text>{`Status: ${this.state.status}`}</Text>
+            <Animatable.View animation='zoomIn' duration={2000} delay={1000}>
+            <TouchableHighlight
+                underlayColor='rgba(73,182,77,0.9)'
+                onPress={() => navigate('Recipes', { recipeId: item.id })}
+              >
+                <View style={styles.container}>
+                    <Image
+                        style={styles.photo}
+                        source={{ uri: baseUrl + item.image }}
+                    />
+                    <Text style={styles.title}>{item.name}</Text>
+                    <Text style={styles.category}>{item.categoryname}</Text>
+                </View>
+
+            </TouchableHighlight>
+        </Animatable.View>
+        );
+        
+    }
+        return (
+            <View>
+                <FlatList
+                    vertical
+                    showsVerticalScrollIndicator={false}
+                    numColumns={2}
+                    data={recipesArray}
+                    renderItem={renderRecipesByCategory}
+                    keyExtractor={item => item.id.toString()}
+                />
             </View>
+
         );
     }
 }
 
-const styles = StyleSheet.create({
-    youtube: {
-        alignSelf: 'stretch',
-        height: 300
-        }
-})
 
-export default RecipeList;
+const styles = StyleSheet.create({
+    container: Recipecard.container,
+
+    photo: Recipecard.photo,
+    title: Recipecard.title,
+    category: Recipecard.category
+});
+
+export default connect(mapStateToProps)(RecipeList);

@@ -20,19 +20,32 @@ class Category extends Component {
         title: 'Category'
     }
 
-    onCategoryPress = item => {
-        const title = item.name;
-        const category = item;
-        this.props.navigation.navigate('RecipeList', { title, category });
-    }
+ /*  onCategoryPress = item => {
+       
+        const category =item;
+        console.log("pelllllllllllllllllo " +category)
+        this.props.navigation.navigate('RecipeList', category );
+    };*/
 
-    getNumberOfRecipes = (categoryId) => {
+    getRecipes(categoryId) {
+        console.log("categoryid" +categoryId);
+        const recipesArray = [];
+        recipes.map(data => {
+          if (data.catid == categoryId) {
+            recipesArray.push(data);
+            console.log("recipes array with catg" +recipesArray);
+          }
+        });
+        return recipesArray;
+      }
+
+    getNumberOfRecipes =(categoryId)=> {
         let count = 0;
-        console.log("text" + categoryId)
+       //console.log("text" + categoryId)
         //return 6;
         this.props.recipes.recipes.map(
             data => {
-                console.log("dataid" + data.catid);
+              //  console.log("dataid" + data.catid);
                 if (data.catid === categoryId) {
                     count++;
 
@@ -42,15 +55,20 @@ class Category extends Component {
         return count;
     }
 
+   
     render() {
 
+        const { navigate } = this.props.navigation;
+        const tt =4;
         const renderCategories = ({ item }) => {
             return (
 
                 <Animatable.View animation='rotate' duration={2000} delay={1000}>
                     <TouchableHighlight
                         underlayColor='rgba(73,182,77,0.9)'
-                        onPress={() => this.onCategoryPress({ category: item.id })}>
+                        onPress={() => navigate('RecipeList', { catId: item.categoryid })}
+                    
+                        >
                         <View style={styles.categoriesItemContainer}>
                             <Image
                                 style={styles.categoriesPhoto}
@@ -63,9 +81,8 @@ class Category extends Component {
                 </Animatable.View>
             );
         };
-
+    
         //Loading action
-
 
         //Display Error Message if not loaded..container
 
@@ -74,7 +91,7 @@ class Category extends Component {
                 <FlatList
                     data={this.props.category.category}
                     renderItem={renderCategories}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => `${item.categoryId}`}
                 />
             </View>
         );

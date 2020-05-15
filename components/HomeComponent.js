@@ -38,14 +38,15 @@ class Home extends Component {
                 <Animatable.View animation='zoomIn' duration={2000} delay={1000}>
                     <TouchableHighlight
                         underlayColor='rgba(73,182,77,0.9)'
-                        onPress={() => navigate('Recipes', { recipeId: item.id })}>
+                        onPress={() => navigate('Recipes', { recipeId: item.id })}
+                      >
                         <View style={styles.container}>
                             <Image
                                 style={styles.photo}
                                 source={{ uri: baseUrl + item.image }}
                             />
                             <Text style={styles.title}>{item.name}</Text>
-                            <Text style={styles.category}>{item.category}</Text>
+                            <Text style={styles.category}>{item.categoryname}</Text>
                         </View>
 
                     </TouchableHighlight>

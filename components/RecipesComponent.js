@@ -67,9 +67,6 @@ function RenderRecipesToClickId({ recipes }) {
 
 class Recipes extends Component {
 
-
-  
-
     static navigationOptions = {
         title: 'Recipes'
     }

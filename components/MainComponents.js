@@ -4,6 +4,7 @@ import Recipes from './RecipesComponent';
 import Loading from './LoadingComponent';
 import Category from './CategoryComponent';
 import RecipeList from './RecipeListComponent';
+import About from './AboutComponent';
 import { Icon } from 'react-native-elements';
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
@@ -65,7 +66,69 @@ const HomeNavigator = createStackNavigator(
 
 const CategoryNavigator = createStackNavigator(
     {
-        Category: { screen: Category }
+        Category: {
+            screen: Category,
+            navigationOptions: ({ navigation }) => ({
+                headerStyle: {
+                    backgroundColor: '#2A5666'
+                },
+                headerTintcolor: '#fff',
+                headerTitleStyle: {
+                    fontSize: 24,
+                    color: '#fff',
+                    width: '70%',
+                    textAlign: 'center'
+
+                },
+
+                headerLeft: <Icon
+                    name='bars'
+                    type='font-awesome'
+                    iconStyle={styles.stackIcon}
+                    onPress={() => navigation.toggleDrawer()}
+                />
+            })
+        },
+        RecipeList: {
+            screen: RecipeList,
+            initialRouteName: 'Category',
+            navigationOptions: {
+                headerStyle: {
+                    backgroundColor: '#2A5666'
+                },
+                headerTintcolor: '#fff',
+                headerTitleStyle: {
+                    fontSize: 24,
+                    color: '#fff',
+                    width: '70%',
+                    textAlign: 'center'
+                },
+            },
+            Recipes: {
+                screen: Recipes,
+                initialRouteName: 'RecipeList',
+                navigationOptions: {
+                    headerStyle: {
+                        backgroundColor: '#2A5666'
+                    },
+                    headerTintcolor: '#fff',
+                    headerTitleStyle: {
+                        fontSize: 24,
+                        color: '#fff',
+                        width: '70%',
+                        textAlign: 'center'
+                    },
+                },
+            }
+        }
+    }
+);
+
+
+
+const AboutNavigator = createStackNavigator(
+    {
+        About: { screen: About }
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -78,9 +141,7 @@ const CategoryNavigator = createStackNavigator(
                 color: '#fff',
                 width: '70%',
                 textAlign: 'center'
-
             },
-
             headerLeft: <Icon
                 name='bars'
                 type='font-awesome'
@@ -91,38 +152,9 @@ const CategoryNavigator = createStackNavigator(
     }
 );
 
-
-
-const RecipeListNavigator = createStackNavigator(
-    {
-        RecipeList: { screen: RecipeList }
-    },
-    {
-        navigationOptions: ({ navigation }) => ({
-            headerStyle: {
-                backgroundColor: '#2A5666'
-            },
-            headerTintcolor: '#fff',
-            headerTitleStyle: {
-                fontSize: 24,
-                color: '#fff',
-                width: '70%',
-            textAlign: 'center'
-            },
-            headerLeft: <Icon
-                name='bars'
-                type='font-awesome'
-                iconStyle={styles.stackIcon}
-                onPress={() => navigation.toggleDrawer()}
-            />
-        })
-    }
-
-); 
-
 const LoadingNavigator = createStackNavigator(
     {
-        Home: { screen: Loading }
+        Loading: { screen: Loading }
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -186,24 +218,6 @@ const MainNavigator = createDrawerNavigator(
             }
         },
 
-         RecipeList: {
-              screen: RecipeListNavigator,
-              navigationOptions: {
-                  drawerLable: 'Home',
-                  drawerIcon: () => (
-                      <Icon
-                          name='cutlery'
-                          type='font-awesome'
-                          size={24}
-                          iconColor='black'
-                          color='#AD4832'
-                          reverse
-                      />
-                  )
-              }
-  
-          },
-
         Loading: {
             screen: LoadingNavigator,
             navigationOptions: {
@@ -236,6 +250,24 @@ const MainNavigator = createDrawerNavigator(
                     />
                 )
             }
+        },
+
+        About: {
+            screen: AboutNavigator,
+            navigationOptions: {
+                drawerLable: 'AboutMe',
+                drawerIcon: () => (
+                    <Icon
+                        name='female'
+                        type='font-awesome'
+                        size={24}
+                        iconColor='black'
+                        color='#AD4832'
+                        reverse
+                    />
+                )
+            }
+
         },
     },
     {
