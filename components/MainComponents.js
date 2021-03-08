@@ -250,7 +250,7 @@ const MainNavigator = createDrawerNavigator(
                     />
                 )
             }
-        },
+        }, 
 
         About: {
             screen: AboutNavigator,

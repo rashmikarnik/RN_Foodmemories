@@ -11,31 +11,40 @@ class About extends Component {
     }
     render() {
         return (
-            <ParallaxScrollView
-                backgroundColor="blue"
-                contentBackgroundColor="#EAECEE"
-                parallaxHeaderHeight={400}
-                renderForeground={() => (
-                    <View >
-                        <Image source={require('./images/samitaNaik.jpg')} style={{ height: 400 }} />
-                    </View>
-                )}>
-                <View style={styles.container}>
-                    <Text style={styles.textcontainer}>
-                        Hello Welcome To Food Memories....{'\n \n'}
-                    </Text>
-                
-                <View style={styles.mainTextcontainer}>
-                    <Text style={styles.mainTextDisplay}>
-                        I am a simple and fun loving person looking
-                        for new things to do everyday. Cooking is my passion and my passion became the journey of my life which I have carefully documented and preserved through this Food Memories.I am very very VERY passionate about food and drink. I try my best to always eat with an open mind and I live for the thrill of trying out new things.
-                {'\n \n'}Hope you enjoy the recipes....
-                {'\n \n'}SAMITA NAIK
-                        </Text>
-                </View>
-                </View>
-            </ParallaxScrollView>
-        )
+          <ParallaxScrollView
+            backgroundColor="blue"
+            contentBackgroundColor="#EAECEE"
+            parallaxHeaderHeight={400}
+            renderForeground={() => (
+              <View>
+                <Image
+                  source={require("./images/samitaNaik.jpg")}
+                  style={{ height: 400 }}
+                />
+              </View>
+            )}
+          >
+            <View style={styles.container}>
+              <Text style={styles.textcontainer}>
+                Hello Welcome To Food Memories....{"\n \n"}
+              </Text>
+
+              <View style={styles.mainTextcontainer}>
+                <Text style={styles.mainTextDisplay}>
+                  I am a simple and fun loving person looking for new things to
+                  do everyday. Cooking is my passion and my passion became the
+                  journey of my life which I have carefully documented and
+                  preserved through this Food Memories.I am very very VERY
+                  passionate about food and drink. I try my best to always eat
+                  with an open mind and I live for the thrill of trying out new
+                  things.
+                  {"\n \n"}Hope you enjoy the recipes....
+                  {"\n \n"}SAMITA NAIK karnik
+                </Text>
+              </View>
+            </View>
+          </ParallaxScrollView>
+        );
     }
 }
 
