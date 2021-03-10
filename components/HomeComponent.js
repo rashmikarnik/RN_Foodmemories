@@ -8,7 +8,7 @@ import { Image } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
 //Define the state
-//Rashmi karnik
+//Rashmi karnik bothell india
 const mapStateToProps = state => {
     return {
         recipes: state.recipes
